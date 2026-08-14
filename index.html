@@ -3,140 +3,908 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Downloader</title>
+<title>Video Downloader Pro</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#111;
-  color:white;
-  text-align:center;
+  background:#080b10;
+  color:#fff;
+  transition:.3s;
 }
-.header{
-  padding:25px 10px;
-  background:#1b1b1b;
+
+body.light{
+  background:#f2f4f7;
+  color:#111;
 }
-.header h1{margin:0 0 18px;}
-.platforms{
+
+header{
+  background:linear-gradient(135deg,#111827,#0b1220);
+  padding:22px 15px;
+  border-bottom:1px solid #273244;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.top{
+  max-width:1100px;
+  margin:auto;
   display:flex;
-  justify-content:center;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:bold;
+}
+
+.actions{
+  display:flex;
   gap:8px;
   flex-wrap:wrap;
 }
-.platforms button{
-  padding:10px 15px;
+
+.btn{
   border:0;
-  border-radius:8px;
-  background:#333;
+  border-radius:9px;
+  padding:10px 14px;
+  background:#202938;
+  color:#fff;
+  cursor:pointer;
+}
+
+.btn:hover{background:#303c4e}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:30px 15px;
+}
+
+.hero{
+  text-align:center;
+  padding:35px 10px;
+}
+
+.hero h1{
+  font-size:42px;
+  margin:5px 0 12px;
+}
+
+.hero p{
+  color:#9ca8b8;
+  font-size:17px;
+}
+
+.search{
+  max-width:800px;
+  margin:25px auto;
+  display:flex;
+  gap:8px;
+}
+
+.search input{
+  flex:1;
+  padding:17px;
+  border:1px solid #354052;
+  border-radius:12px;
+  background:#111827;
   color:white;
+  font-size:16px;
+  outline:none;
 }
-.main{
-  max-width:550px;
-  margin:60px auto;
-  padding:20px;
-}
-input{
-  box-sizing:border-box;
-  width:100%;
-  padding:16px;
+
+.search button{
+  padding:0 22px;
   border:0;
-  border-radius:10px;
+  border-radius:12px;
+  background:#00c853;
+  color:white;
+  font-weight:bold;
   font-size:16px;
 }
+
+.platforms{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:12px;
+  margin:25px 0;
+}
+
+.platform{
+  padding:18px 10px;
+  border:1px solid #303b4d;
+  border-radius:14px;
+  background:#111827;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.platform.active{
+  border-color:#00c853;
+  box-shadow:0 0 15px rgba(0,200,83,.2);
+}
+
+.card{
+  background:#111827;
+  border:1px solid #2c3748;
+  border-radius:18px;
+  padding:25px;
+  margin-top:20px;
+}
+
+.card h2{margin-top:0}
+
+.urlbox{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.urlbox input{
+  flex:1;
+  min-width:200px;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid #3a4658;
+  background:#0b111b;
+  color:white;
+  font-size:16px;
+}
+
 .download{
-  margin-top:15px;
-  padding:15px 35px;
+  padding:16px 25px;
   border:0;
   border-radius:10px;
   background:#00c853;
-  color:white;
-  font-size:18px;
+  color:#fff;
+  font-size:17px;
   font-weight:bold;
+  cursor:pointer;
 }
-#status{margin-top:20px;}
-video{
+
+.secondary{
+  background:#263244;
+}
+
+.status{
+  margin-top:18px;
+  min-height:25px;
+  color:#b7c1cf;
+}
+
+.preview{
   width:100%;
+  max-height:450px;
   margin-top:20px;
-  border-radius:10px;
+  border-radius:14px;
   display:none;
+  background:#000;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  margin-top:25px;
+}
+
+.feature{
+  background:#111827;
+  border:1px solid #2c3748;
+  padding:20px;
+  border-radius:15px;
+}
+
+.feature b{
+  display:block;
+  margin-bottom:8px;
+}
+
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  margin:8px 0;
+  border-radius:10px;
+  background:#0b111b;
+  overflow:hidden;
+}
+
+.history-item span{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.settings{
+  display:none;
+}
+
+.settings select{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border-radius:9px;
+  background:#0b111b;
+  color:white;
+  border:1px solid #394557;
+}
+
+.drop{
+  text-align:center;
+  padding:25px;
+  border:2px dashed #3b4759;
+  border-radius:14px;
+  margin-top:18px;
+  color:#9ca8b8;
+}
+
+footer{
+  text-align:center;
+  padding:35px 15px;
+  color:#7f8b9c;
+}
+
+@media(max-width:600px){
+  .hero h1{font-size:31px}
+  .search{flex-direction:column}
+  .search button{padding:15px}
+  .top{align-items:flex-start}
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h1>🎬 Video Downloader</h1>
+<header>
+  <div class="top">
+
+    <div class="logo">🎬 VideoPro</div>
+
+    <div class="actions">
+      <button class="btn" onclick="toggleTheme()">🌙</button>
+      <button class="btn" onclick="showSettings()">⚙️ Settings</button>
+
+      <select class="btn" id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="ps">پښتو</option>
+        <option value="fa">فارسی</option>
+        <option value="ar">العربية</option>
+        <option value="ur">اردو</option>
+        <option value="hi">हिन्दी</option>
+        <option value="tr">Türkçe</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+      </select>
+    </div>
+
+  </div>
+</header>
+
+
+<main class="container">
+
+<section class="hero">
+
+  <h1 id="title">Video Downloader Pro</h1>
+
+  <p id="subtitle">
+    Search, paste a direct video link, preview and manage your downloads.
+  </p>
+
+  <div class="search">
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="🔎 Search..."
+      oninput="searchSite()"
+    >
+
+    <button onclick="searchSite()">Search</button>
+
+  </div>
+
+</section>
+
+
+<section>
 
   <div class="platforms">
-    <button onclick="selectSite('TikTok')">TikTok</button>
-    <button onclick="selectSite('Facebook')">Facebook</button>
-    <button onclick="selectSite('Instagram')">Instagram</button>
-    <button onclick="selectSite('YouTube')">YouTube</button>
+
+    <button class="platform" onclick="selectPlatform('TikTok',this)">
+      🎵 TikTok
+    </button>
+
+    <button class="platform" onclick="selectPlatform('Facebook',this)">
+      📘 Facebook
+    </button>
+
+    <button class="platform" onclick="selectPlatform('Instagram',this)">
+      📸 Instagram
+    </button>
+
+    <button class="platform" onclick="selectPlatform('YouTube',this)">
+      ▶️ YouTube
+    </button>
+
+    <button class="platform" onclick="selectPlatform('Direct Video',this)">
+      🎬 Direct Video
+    </button>
+
   </div>
-</div>
 
-<div class="main">
-  <h2 id="selected">Select a platform</h2>
+</section>
 
-  <input
-    id="url"
-    type="url"
-    placeholder="Paste video link here"
-  >
 
-  <button class="download" onclick="downloadVideo()">
-    ⬇️ Download
+<section class="card">
+
+  <h2 id="selected">
+    Select a platform
+  </h2>
+
+  <div class="urlbox">
+
+    <input
+      id="videoUrl"
+      type="url"
+      placeholder="Paste video URL here"
+    >
+
+    <button
+      class="download"
+      onclick="downloadVideo()">
+      ⬇️ Download
+    </button>
+
+    <button
+      class="download secondary"
+      onclick="pasteLink()">
+      📋 Paste
+    </button>
+
+    <button
+      class="download secondary"
+      onclick="clearLink()">
+      🗑️ Clear
+    </button>
+
+  </div>
+
+
+  <div class="drop">
+    📁 Drag & Drop a video file here
+    <br>
+    <small>or paste a direct video URL above</small>
+  </div>
+
+
+  <p class="status" id="status"></p>
+
+  <video
+    class="preview"
+    id="preview"
+    controls>
+  </video>
+
+</section>
+
+
+<section class="features">
+
+  <div class="feature">
+    🔎
+    <b>Smart Search</b>
+    Search inside your downloader interface.
+  </div>
+
+  <div class="feature">
+    ⚡
+    <b>Fast Interface</b>
+    Lightweight and mobile friendly.
+  </div>
+
+  <div class="feature">
+    🎬
+    <b>Video Preview</b>
+    Preview direct video files before saving.
+  </div>
+
+  <div class="feature">
+    📜
+    <b>History</b>
+    Keep your recent links on this device.
+  </div>
+
+  <div class="feature">
+    🌙
+    <b>Dark Mode</b>
+    Switch between dark and light themes.
+  </div>
+
+  <div class="feature">
+    🌍
+    <b>10 Languages</b>
+    Multiple interface languages included.
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <h2>📜 Download History</h2>
+
+  <button class="btn" onclick="clearHistory()">
+    Clear History
   </button>
 
-  <p id="status"></p>
+  <div id="history">
+    <p>No downloads yet.</p>
+  </div>
 
-  <video id="preview" controls></video>
-</div>
+</section>
+
+
+<section class="card settings" id="settings">
+
+  <h2>⚙️ Settings</h2>
+
+  <label>
+    Interface Language
+    <select onchange="changeLanguageFromSettings(this.value)">
+      <option value="en">English</option>
+      <option value="ps">پښتو</option>
+      <option value="fa">فارسی</option>
+      <option value="ar">العربية</option>
+      <option value="ur">اردو</option>
+      <option value="hi">हिन्दी</option>
+      <option value="tr">Türkçe</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </label>
+
+  <br><br>
+
+  <button class="btn" onclick="toggleTheme()">
+    🌙 Toggle Theme
+  </button>
+
+</section>
+
+</main>
+
+
+<footer>
+  🎬 VideoPro — Built as a growing project
+  <br><br>
+  Use downloads only for videos/files you have permission to download.
+</footer>
+
 
 <script>
-let selectedSite = "";
 
-function selectSite(site){
-  selectedSite = site;
+let selectedPlatform = "";
+
+const translations = {
+
+  en:{
+    title:"Video Downloader Pro",
+    subtitle:"Search, paste a direct video link, preview and manage your downloads.",
+    search:"Search",
+    selected:"Select a platform",
+    placeholder:"Paste video URL here"
+  },
+
+  ps:{
+    title:"د ویډیو ډاونلوډر پرو",
+    subtitle:"لټون وکړئ، د ویډیو مستقیم لینک ورکړئ او ویډیو Preview کړئ.",
+    search:"لټون",
+    selected:"یو پلاتفورم انتخاب کړئ",
+    placeholder:"د ویډیو لینک دلته کېږدئ"
+  },
+
+  fa:{
+    title:"دانلودر ویدیو پرو",
+    subtitle:"جستجو، لینک مستقیم و پیش‌نمایش ویدیو.",
+    search:"جستجو",
+    selected:"یک پلتفرم انتخاب کنید",
+    placeholder:"لینک ویدیو را اینجا وارد کنید"
+  },
+
+  ar:{
+    title:"محمل الفيديو برو",
+    subtitle:"ابحث والصق رابط الفيديو وشاهد المعاينة.",
+    search:"بحث",
+    selected:"اختر منصة",
+    placeholder:"ضع رابط الفيديو هنا"
+  },
+
+  ur:{
+    title:"ویڈیو ڈاؤن لوڈر پرو",
+    subtitle:"سرچ کریں، ویڈیو لنک ڈالیں اور پری ویو دیکھیں۔",
+    search:"تلاش",
+    selected:"پلیٹ فارم منتخب کریں",
+    placeholder:"ویڈیو لنک یہاں ڈالیں"
+  },
+
+  hi:{
+    title:"वीडियो डाउनलोडर प्रो",
+    subtitle:"खोजें, वीडियो लिंक डालें और प्रीव्यू देखें।",
+    search:"खोजें",
+    selected:"प्लेटफ़ॉर्म चुनें",
+    placeholder:"वीडियो लिंक यहाँ डालें"
+  },
+
+  tr:{
+    title:"Video İndirici Pro",
+    subtitle:"Ara, video bağlantısını yapıştır ve önizle.",
+    search:"Ara",
+    selected:"Platform seç",
+    placeholder:"Video bağlantısını buraya yapıştır"
+  },
+
+  es:{
+    title:"Descargador de Vídeos Pro",
+    subtitle:"Busca, pega un enlace directo y previsualiza.",
+    search:"Buscar",
+    selected:"Selecciona una plataforma",
+    placeholder:"Pega el enlace del vídeo"
+  },
+
+  fr:{
+    title:"Téléchargeur Vidéo Pro",
+    subtitle:"Recherchez, collez un lien direct et prévisualisez.",
+    search:"Rechercher",
+    selected:"Choisissez une plateforme",
+    placeholder:"Collez le lien vidéo ici"
+  },
+
+  de:{
+    title:"Video Downloader Pro",
+    subtitle:"Suchen, direkten Videolink einfügen und Vorschau ansehen.",
+    search:"Suchen",
+    selected:"Plattform auswählen",
+    placeholder:"Videolink hier einfügen"
+  }
+
+};
+
+
+function selectPlatform(site,button){
+
+  selectedPlatform = site;
+
+  document
+    .querySelectorAll(".platform")
+    .forEach(x => x.classList.remove("active"));
+
+  button.classList.add("active");
+
   document.getElementById("selected").innerText =
     "Download from " + site;
-  document.getElementById("url").placeholder =
+
+  document.getElementById("videoUrl").placeholder =
     "Paste " + site + " video link here";
+
+  document.getElementById("status").innerText =
+    site + " selected.";
+
 }
 
-function downloadVideo(){
-  const url = document.getElementById("url").value.trim();
-  const status = document.getElementById("status");
-  const preview = document.getElementById("preview");
 
-  if(!selectedSite){
-    status.innerText = "Please select a platform first.";
-    return;
+async function pasteLink(){
+
+  try{
+
+    const text =
+      await navigator.clipboard.readText();
+
+    document.getElementById("videoUrl").value = text;
+
+    document.getElementById("status").innerText =
+      "Link pasted successfully.";
+
+  }catch(e){
+
+    document.getElementById("status").innerText =
+      "Please paste the link manually.";
+
   }
+
+}
+
+
+function clearLink(){
+
+  document.getElementById("videoUrl").value = "";
+
+  document.getElementById("preview").style.display =
+    "none";
+
+  document.getElementById("status").innerText =
+    "";
+
+}
+
+
+function downloadVideo(){
+
+  const url =
+    document.getElementById("videoUrl").value.trim();
+
+  const status =
+    document.getElementById("status");
+
+  const preview =
+    document.getElementById("preview");
+
+
+  if(!selectedPlatform){
+
+    status.innerText =
+      "Please select a platform first.";
+
+    return;
+
+  }
+
 
   if(!url){
-    status.innerText = "Please paste a video link.";
+
+    status.innerText =
+      "Please paste a video URL first.";
+
     return;
+
   }
 
+
   status.innerText =
-    "Trying to open the video...";
+    "Loading direct video link...";
+
 
   preview.src = url;
+
   preview.style.display = "block";
 
-  const link = document.createElement("a");
+
+  const item = {
+
+    platform:selectedPlatform,
+
+    url:url,
+
+    time:new Date().toLocaleString()
+
+  };
+
+
+  let history =
+    JSON.parse(localStorage.getItem("videoHistory") || "[]");
+
+  history.unshift(item);
+
+  history =
+    history.slice(0,20);
+
+  localStorage.setItem(
+    "videoHistory",
+    JSON.stringify(history)
+  );
+
+  renderHistory();
+
+
+  const link =
+    document.createElement("a");
+
   link.href = url;
-  link.download = "video.mp4";
+
+  link.download = "video";
+
   link.target = "_blank";
 
   document.body.appendChild(link);
+
   link.click();
+
   link.remove();
+
+
+  status.innerText =
+    "Download request sent. Direct video URLs work best.";
+
 }
+
+
+function renderHistory(){
+
+  const box =
+    document.getElementById("history");
+
+  const history =
+    JSON.parse(localStorage.getItem("videoHistory") || "[]");
+
+
+  if(history.length === 0){
+
+    box.innerHTML =
+      "<p>No downloads yet.</p>";
+
+    return;
+
+  }
+
+
+  box.innerHTML = "";
+
+
+  history.forEach(item => {
+
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "history-item";
+
+
+    row.innerHTML = `
+
+      <span>
+        ${item.platform} —
+        ${item.time}
+      </span>
+
+      <button
+        class="btn"
+        onclick="useHistory('${encodeURIComponent(item.url)}')">
+        Use
+      </button>
+
+    `;
+
+
+    box.appendChild(row);
+
+  });
+
+}
+
+
+function useHistory(encoded){
+
+  const url =
+    decodeURIComponent(encoded);
+
+  document.getElementById("videoUrl").value =
+    url;
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function clearHistory(){
+
+  localStorage.removeItem("videoHistory");
+
+  renderHistory();
+
+}
+
+
+function toggleTheme(){
+
+  document.body.classList.toggle("light");
+
+}
+
+
+function showSettings(){
+
+  const box =
+    document.getElementById("settings");
+
+  box.style.display =
+    box.style.display === "block"
+    ? "none"
+    : "block";
+
+}
+
+
+function changeLanguage(){
+
+  const lang =
+    document.getElementById("language").value;
+
+  applyLanguage(lang);
+
+}
+
+
+function changeLanguageFromSettings(lang){
+
+  document.getElementById("language").value =
+    lang;
+
+  applyLanguage(lang);
+
+}
+
+
+function applyLanguage(lang){
+
+  const t =
+    translations[lang] || translations.en;
+
+  document.getElementById("title").innerText =
+    t.title;
+
+  document.getElementById("subtitle").innerText =
+    t.subtitle;
+
+  document.getElementById("selected").innerText =
+    t.selected;
+
+  document.getElementById("searchInput").placeholder =
+    "🔎 " + t.search + "...";
+
+  document.getElementById("videoUrl").placeholder =
+    t.placeholder;
+
+}
+
+
+function searchSite(){
+
+  const q =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  document
+    .querySelectorAll(".platform")
+    .forEach(button => {
+
+      const text =
+        button.innerText.toLowerCase();
+
+      button.style.display =
+        !q || text.includes(q)
+        ? "block"
+        : "none";
+
+    });
+
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  renderHistory
+);
+
 </script>
 
 </body>
 </html>
+
