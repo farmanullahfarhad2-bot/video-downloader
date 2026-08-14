@@ -1,199 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VidMate Style Downloader</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f7f9fc;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #333;
-        }
-        /* د VidMate په څېر پورتنی سرچ بار */
-        .header-bar {
-            width: 100%;
-            background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
-            padding: 20px 15px;
-            box-sizing: border-box;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-bar h1 {
-            margin: 0 0 15px 0;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-        .search-container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            background: white;
-            border-radius: 30px;
-            padding: 5px 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            box-sizing: border-box;
-        }
-        .search-container input[type="url"] {
-            flex: 1;
-            border: none;
-            padding: 12px 15px;
-            font-size: 15px;
-            outline: none;
-            border-radius: 30px;
-            background: transparent;
-        }
-        .search-container button {
-            background: #ff4e50;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .search-container button:hover {
-            background: #e03e40;
-        }
-        /* منځنۍ برخه د لارښوونې لپاره */
-        .main-content {
-            width: 90%;
-            max-width: 500px;
-            margin: 40px auto;
-            text-align: center;
-            background: white;
-            padding: 30px 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-        .main-content h2 {
-            color: #ff4e50;
-            font-size: 18px;
-            margin-top: 0;
-        }
-        .main-content p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .loading {
-            display: none;
-            margin-top: 20px;
-            color: #ff4e50;
-            font-weight: bold;
-            font-size: 15px;
-        }
-        /* د پایلې او ډانلوډ تڼۍ بکس */
-        .result-box {
-            display: none;
-            margin-top: 25px;
-            padding: 20px;
-            background: #eef9f1;
-            border-radius: 12px;
-            border: 1px solid #c3e6cb;
-        }
-        .download-btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 35px;
-            background: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-            transition: background 0.3s;
-        }
-        .download-btn:hover {
-            background: #218838;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Downloader</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:white;
+  text-align:center;
+}
+.header{
+  padding:25px 10px;
+  background:#1b1b1b;
+}
+.header h1{margin:0 0 18px;}
+.platforms{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.platforms button{
+  padding:10px 15px;
+  border:0;
+  border-radius:8px;
+  background:#333;
+  color:white;
+}
+.main{
+  max-width:550px;
+  margin:60px auto;
+  padding:20px;
+}
+input{
+  box-sizing:border-box;
+  width:100%;
+  padding:16px;
+  border:0;
+  border-radius:10px;
+  font-size:16px;
+}
+.download{
+  margin-top:15px;
+  padding:15px 35px;
+  border:0;
+  border-radius:10px;
+  background:#00c853;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+}
+#status{margin-top:20px;}
+video{
+  width:100%;
+  margin-top:20px;
+  border-radius:10px;
+  display:none;
+}
+</style>
 </head>
+
 <body>
 
-<!-- پورتنی د VidMate سټایل بار -->
-<div class="header-bar">
-    <h1>Video Downloader Pro</h1>
-    <div class="search-container">
-        <input type="url" id="videoUrl" placeholder="Paste YouTube, TikTok, or FB link here..." required>
-        <button onclick="processVideo()">Fetch</button>
-    </div>
+<div class="header">
+  <h1>🎬 Video Downloader</h1>
+
+  <div class="platforms">
+    <button onclick="selectSite('TikTok')">TikTok</button>
+    <button onclick="selectSite('Facebook')">Facebook</button>
+    <button onclick="selectSite('Instagram')">Instagram</button>
+    <button onclick="selectSite('YouTube')">YouTube</button>
+  </div>
 </div>
 
-<!-- د اپلیکیشن منځنۍ برخه -->
-<div class="main-content">
-    <h2>Super Fast Downloader</h2>
-    <p>Copy any video link from social media and use the search bar above to fetch and download your favorite videos instantly.</p>
-    
-    <div id="loadingText" class="loading">Processing link, please wait...</div>
+<div class="main">
+  <h2 id="selected">Select a platform</h2>
 
-    <div id="resultBox" class="result-box">
-        <p style="color: #28a745; font-weight: bold; margin: 0; font-size: 16px;">Video Link Generated!</p>
-        <a id="finalDownloadLink" href="#" target="_blank" class="download-btn">Download Now</a>
-    </div>
+  <input
+    id="url"
+    type="url"
+    placeholder="Paste video link here"
+  >
+
+  <button class="download" onclick="downloadVideo()">
+    ⬇️ Download
+  </button>
+
+  <p id="status"></p>
+
+  <video id="preview" controls></video>
 </div>
 
 <script>
-    async function processVideo() {
-        const url = document.getElementById('videoUrl').value;
-        const loadingText = document.getElementById('loadingText');
-        const resultBox = document.getElementById('resultBox');
-        const finalLink = document.getElementById('finalDownloadLink');
+let selectedSite = "";
 
-        if (!url) {
-            alert('Please paste a valid video URL first!');
-            return;
-        }
+function selectSite(site){
+  selectedSite = site;
+  document.getElementById("selected").innerText =
+    "Download from " + site;
+  document.getElementById("url").placeholder =
+    "Paste " + site + " video link here";
+}
 
-        loadingText.style.display = 'block';
-        resultBox.style.display = 'none';
+function downloadVideo(){
+  const url = document.getElementById("url").value.trim();
+  const status = document.getElementById("status");
+  const preview = document.getElementById("preview");
 
-        try {
-            const response = await fetch('https://cobalt.tools', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    url: url,
-                    vQuality: '720'
-                })
-            });
+  if(!selectedSite){
+    status.innerText = "Please select a platform first.";
+    return;
+  }
 
-            const data = await response.json();
-            loadingText.style.display = 'none';
+  if(!url){
+    status.innerText = "Please paste a video link.";
+    return;
+  }
 
-            if (data && data.url) {
-                resultBox.style.display = 'block';
-                finalLink.href = data.url;
-            } else {
-                resultBox.style.display = 'block';
-                finalLink.href = url;
-            }
-        } catch (error) {
-            loadingText.style.display = 'none';
-            resultBox.style.display = 'block';
-            finalLink.href = url;
-        }
-    }
+  status.innerText =
+    "Trying to open the video...";
+
+  preview.src = url;
+  preview.style.display = "block";
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "video.mp4";
+  link.target = "_blank";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
 </script>
 
 </body>
 </html>
-
